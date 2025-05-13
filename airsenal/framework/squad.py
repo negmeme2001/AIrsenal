@@ -102,6 +102,11 @@ class Squad(object):
         else:  # already a CandidatePlayer (or an equivalent test class)
             player = p
             player.season = self.season
+        # Skip unsupported positions like assistant manager
+        if player.position not in TOTAL_PER_POSITION:
+            if self.verbose:
+                print(f"Skipping unsupported position: {player.position}")
+            return False
         # set the price if one was specified.
         if price:
             player.purchase_price = price
